@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 export default function PostCard({ id, title, author, content }) {
   return (
     <Link
-      className='h-[168px] bg-zinc-900 p-4 transition-all duration-300 hover:bg-zinc-800'
+      className='h-[168px] bg-zinc-900 p-4 transition-all duration-500 hover:bg-zinc-800'
       to={`${id}`}
     >
       <div className='flex flex-col gap-4'>

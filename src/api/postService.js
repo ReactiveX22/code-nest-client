@@ -46,11 +46,9 @@ export async function getAllPosts() {
 export async function createPost(data) {
   const response = await fetch(postURL, {
     method: 'POST',
-
     headers: {
       'Content-Type': 'application/json',
     },
-
     body: JSON.stringify({
       id: generateId(),
       title: data.title,

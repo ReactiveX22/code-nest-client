@@ -3,7 +3,7 @@ import DB from '../../db/db';
 export default async (req, context) => {
   try {
     const { userId } = context.params;
-    const db = await DB();
+    const db = await DB.get();
 
     const user = db.users.find((u) => u.id === userId);
 

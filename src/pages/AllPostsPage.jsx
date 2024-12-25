@@ -1,21 +1,19 @@
-import { useLoaderData } from 'react-router-dom';
-import PostCard from '../components/PostCard';
+import { PostCardList } from '../components/PostCardList';
+import SkeletonPosts from '../components/skeletons/SkeletonPosts';
+import { usePostsContext } from '../context/PostsContext';
+import { usePosts } from '../hooks/usePosts';
 
 export default function AllPostsPage() {
-  const { allPosts } = useLoaderData();
+  const { posts } = usePostsContext();
+  usePosts();
 
   return (
     <>
-      <div className='border-b border-zinc-800 pb-2 text-xl font-semibold'>
-        Recent Posts
-      </div>
+      <div className='text-2xl font-semibold'>Recent Posts</div>
       <div>
-        <div className='grid grid-cols-3 gap-4'>
-          {allPosts.map((post) => (
-            <PostCard key={post.id} {...post} />
-          ))}
-        </div>
-      </div>{' '}
+        {posts.length === 0 && <SkeletonPosts />}
+        {posts.length > 0 && <PostCardList posts={posts} />}
+      </div>
     </>
   );
 }

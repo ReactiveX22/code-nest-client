@@ -1,12 +1,10 @@
 import DB from '../../db/db';
 
 export default async (req, context) => {
-  const { userId } = context.params;
-
   try {
-    const db = await DB();
+    const dbData = await DB.get();
 
-    const users = db.users || [];
+    const users = dbData.users || [];
 
     return new Response(JSON.stringify(users), {
       status: 200,
