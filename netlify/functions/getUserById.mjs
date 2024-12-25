@@ -1,11 +1,17 @@
-import DB from '../../db/db';
+import supabase from '../../db/db';
 
 export default async (req, context) => {
   try {
     const { userId } = context.params;
-    const db = await DB.get();
+    const { data: user, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', userId)
+      .single();
 
-    const user = db.users.find((u) => u.id === userId);
+    if (error) {
+      throw new Error(error.message);
+    }
 
     if (!user) {
       return new Response('User not found', { status: 404 });
@@ -16,7 +22,7 @@ export default async (req, context) => {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error('Error reading db.json:', error);
+    console.error('Error fetching user:', error);
     return new Response('Internal Server Error', { status: 500 });
   }
 };

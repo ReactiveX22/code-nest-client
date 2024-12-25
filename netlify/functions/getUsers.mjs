@@ -1,17 +1,19 @@
-import DB from '../../db/db';
+import supabase from '../../db/db';
 
 export default async (req, context) => {
   try {
-    const dbData = await DB.get();
+    const { data: users, error } = await supabase.from('users').select('*');
 
-    const users = dbData.users || [];
+    if (error) {
+      throw new Error(error.message);
+    }
 
     return new Response(JSON.stringify(users), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error('Error reading db.json:', error);
+    console.error('Error fetching users:', error);
     return new Response('Internal Server Error', { status: 500 });
   }
 };

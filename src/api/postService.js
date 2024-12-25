@@ -16,8 +16,7 @@ export async function getPostById(postId) {
   const post = {
     ...postData,
     author: {
-      name: author.name,
-      id: author.id,
+      ...author,
     },
   };
 
@@ -36,7 +35,7 @@ export async function getAllPosts() {
   const allPosts = await Promise.all(
     allPostData.map(async (postData) => {
       const author = await getUserById(postData.author);
-      return { ...postData, author: author.name };
+      return { ...postData, author: author.username };
     })
   );
 

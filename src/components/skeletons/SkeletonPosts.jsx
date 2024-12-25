@@ -1,7 +1,7 @@
 export default function SkeletonPosts() {
   return (
     <div className='grid grid-cols-3 gap-4'>
-      {[...Array(9)].map((_, index) => (
+      {[...Array(12)].map((_, index) => (
         <div key={index} className='h-[168px] animate-pulse bg-zinc-900 p-4'>
           <div className='flex h-full flex-col justify-between gap-4'>
             <div className='flex flex-col gap-1'>

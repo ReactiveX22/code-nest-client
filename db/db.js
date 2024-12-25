@@ -1,27 +1,8 @@
-import fs from 'fs';
-import path from 'path';
+import { createClient } from '@supabase/supabase-js';
 
-const dbFilePath = path.resolve('./db/db.json');
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
 
-const DB = {
-  async get() {
-    try {
-      const data = fs.readFileSync(dbFilePath, 'utf-8');
-      return JSON.parse(data);
-    } catch (error) {
-      console.error('Error reading db.json:', error);
-      return { posts: [] };
-    }
-  },
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  async save(db) {
-    try {
-      const data = JSON.stringify(db, null, 2);
-      fs.writeFileSync(dbFilePath, data, 'utf-8');
-    } catch (error) {
-      console.error('Error writing to db.json:', error);
-    }
-  },
-};
-
-export default DB;
+export default supabase;

@@ -1,37 +1,39 @@
-import DB from '../../db/db';
+import supabase from '../../db/db';
 
 export default async (req, context) => {
   try {
-    const dbData = await DB.get();
-
     if (req.method === 'GET') {
-      const posts = dbData.posts || [];
-      return new Response(JSON.stringify(posts), {
+      const { data, error } = await supabase.from('posts').select('*');
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return new Response(JSON.stringify(data), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
     if (req.method === 'POST') {
-      const { id, title, content, author } = await req.json();
+      const { title, content, author } = await req.json();
 
-      if (!title || !content) {
+      if (!title || !content || !author) {
         return new Response('Bad Request: Missing title or content', {
           status: 400,
         });
       }
 
-      const newPost = {
-        id,
-        title,
-        content,
-        author,
-      };
+      const { data, error } = await supabase
+        .from('posts')
+        .insert([{ title, content, author }])
+        .select('*');
 
-      dbData.posts.push(newPost);
-      await DB.save(dbData);
+      if (error) {
+        throw new Error(error.message);
+      }
 
-      return new Response(JSON.stringify(newPost), {
+      return new Response(JSON.stringify(data[0]), {
         status: 201,
         headers: { 'Content-Type': 'application/json' },
       });

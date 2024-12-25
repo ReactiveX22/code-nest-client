@@ -1,4 +1,4 @@
-import DB from '../../db/db';
+import supabase from '../../db/db';
 
 export default async (req, context) => {
   try {
@@ -7,9 +7,15 @@ export default async (req, context) => {
     }
 
     const { postId } = context.params;
-    const db = await DB();
+    const { data: post, error } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('id', postId)
+      .single();
 
-    const post = db.posts.find((p) => p.id === postId);
+    if (error) {
+      throw new Error(error.message);
+    }
 
     if (!post) {
       return new Response('Post not found', { status: 404 });
@@ -20,7 +26,7 @@ export default async (req, context) => {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error('Error reading db.json:', error);
+    console.error('Error fetching post:', error);
     return new Response('Internal Server Error', { status: 500 });
   }
 };
