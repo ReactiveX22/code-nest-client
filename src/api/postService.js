@@ -25,7 +25,7 @@ export async function getPostById(postId) {
 }
 
 export async function getAllPosts() {
-  const response = await fetch('http://localhost:8888/api/posts');
+  const response = await fetch(postURL);
 
   if (!response.ok) {
     throw new Error('Failed to fetch post');
