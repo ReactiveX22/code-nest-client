@@ -1,14 +1,17 @@
 import DB from '../../db/db';
 
 export default async (req, context) => {
-  const { userId } = context.params;
-
   try {
+    const { postId } = context.params;
     const db = await DB();
 
-    const users = db.users || [];
+    const post = db.posts.find((p) => p.id === postId);
 
-    return new Response(JSON.stringify(users), {
+    if (!post) {
+      return new Response('User not found', { status: 404 });
+    }
+
+    return new Response(JSON.stringify(post), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
@@ -19,5 +22,5 @@ export default async (req, context) => {
 };
 
 export const config = {
-  path: '/api/users',
+  path: '/api/posts/:postId',
 };

@@ -1,17 +1,10 @@
-import fs from 'fs';
-import path from 'path';
+import DB from '../../db/db';
 
 export default async (req, context) => {
   try {
-    // Path to your db.json file
-    const filePath = path.resolve('./api/db.json'); // Ensure this path is correct
+    const db = await DB();
 
-    // Read the content of db.json file
-    const data = fs.readFileSync(filePath, 'utf-8');
-    const db = JSON.parse(data); // Parse the JSON data
-
-    // Get posts from db.json
-    const posts = db.posts || []; // Default to empty array if posts is not found
+    const posts = db.posts || [];
 
     return new Response(JSON.stringify(posts), {
       status: 200,
