@@ -15,7 +15,10 @@ export async function getPostById(postId) {
 
   const post = {
     ...postData,
-    author: author.name,
+    author: {
+      name: author.name,
+      id: author.id,
+    },
   };
 
   return post;
@@ -33,7 +36,7 @@ export async function getAllPosts() {
     allPostData.map(async (postData) => {
       const author = await getUserById(postData.author);
       return { ...postData, author: author.name };
-    }),
+    })
   );
 
   return allPosts;

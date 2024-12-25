@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { deletePost } from '../api/postService';
 import MarkdownRendererV2 from '../components/markdown/MarkdownRendererV2';
 
@@ -9,6 +9,7 @@ export default function PostPage() {
   function handleEdit(postId) {
     navigate(`/posts/${postId}/edit`);
   }
+
   async function handleDelete(postId) {
     try {
       await deletePost(postId);
@@ -22,7 +23,14 @@ export default function PostPage() {
       <div className='flex justify-between border-b border-zinc-800 pb-4'>
         <div className='flex flex-col gap-3'>
           <h1 className='text-3xl font-semibold'>{post.title}</h1>
-          <h3 className='text-zinc-400'>{post.author}</h3>
+          <div>
+            <Link
+              to={`/users/${post.author.id}`}
+              className='text-zinc-600 hover:text-blue-600 hover:underline'
+            >
+              {post.author.name}
+            </Link>
+          </div>
         </div>
         <div className='flex h-full gap-6 self-end text-zinc-600'>
           <button

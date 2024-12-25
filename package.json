@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "db": "nodemon --watch db.json --exec \"json-server --watch api/db.json --port 8000\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

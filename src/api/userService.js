@@ -9,5 +9,7 @@ export async function getUserById(userId) {
     throw new Error('Failed to fetch user');
   }
 
-  return response.json();
+  const userData = await response.json();
+
+  return userData;
 }

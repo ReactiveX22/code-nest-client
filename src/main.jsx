@@ -9,6 +9,8 @@ import ErrorPage from './pages/ErrorPage';
 import Layout from './pages/layout';
 import PostPage from './pages/PostPage';
 import EditPostPage from './pages/EditPostPage';
+import { UserPage } from './pages/UserPage';
+import { userLoader } from './loaders/userLoader';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,7 @@ const router = createBrowserRouter([
       { path: 'posts/:id', element: <PostPage />, loader: postLoader },
       { path: 'posts/:id/edit', element: <EditPostPage />, loader: postLoader },
       { path: 'create/', element: <CreatePostPage /> },
+      { path: 'users/:id', element: <UserPage />, loader: userLoader },
     ],
   },
 ]);
