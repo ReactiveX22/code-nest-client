@@ -25,21 +25,24 @@ export async function getPostById(postId) {
 }
 
 export async function getAllPosts() {
-  const response = await fetch(postURL);
+  const response = await fetch('http://localhost:8888/api/posts');
+  console.log(postURL);
+
   if (!response.ok) {
     throw new Error('Failed to fetch post');
   }
 
   const allPostData = await response.json();
 
-  const allPosts = await Promise.all(
-    allPostData.map(async (postData) => {
-      const author = await getUserById(postData.author);
-      return { ...postData, author: author.name };
-    })
-  );
+  // const allPosts = await Promise.all(
+  //   allPostData.map(async (postData) => {
+  //     const author = await getUserById(postData.author);
+  //     return { ...postData, author: author.name };
+  //   })
+  // );
 
-  return allPosts;
+  // return allPosts;
+  return allPostData;
 }
 
 export async function createPost(data) {

@@ -6,7 +6,7 @@ import { allPostLoader, postLoader } from './loaders/postLoader';
 import AllPostsPage from './pages/AllPostsPage';
 import CreatePostPage from './pages/CreatePostPage';
 import ErrorPage from './pages/ErrorPage';
-import Layout from './pages/layout';
+import Layout from './pages/Layout';
 import PostPage from './pages/PostPage';
 import EditPostPage from './pages/EditPostPage';
 import { UserPage } from './pages/UserPage';
