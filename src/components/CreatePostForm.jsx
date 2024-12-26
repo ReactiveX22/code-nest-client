@@ -28,7 +28,7 @@ export default function CreatePostForm() {
           <input
             type='text'
             name='title'
-            className='w-full border-b border-zinc-800 bg-transparent py-3 text-2xl outline-none'
+            className='border-bg-800 w-full border-b bg-transparent py-3 text-2xl outline-none'
             placeholder='Title'
             {...register('title', {
               required: { value: true, message: 'Title is required.' },
@@ -48,7 +48,7 @@ export default function CreatePostForm() {
           ></textarea>
         </FormGroup>
         <div className='flex justify-end'>
-          <button className='border border-zinc-800 bg-zinc-900 px-4 py-2 font-medium'>
+          <button className='bg-bg-900 border-bg-800 border px-4 py-2 font-medium'>
             Post
           </button>
         </div>

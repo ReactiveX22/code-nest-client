@@ -12,6 +12,7 @@ import Layout from './pages/Layout';
 import PostPage from './pages/PostPage';
 import { UserPage } from './pages/UserPage';
 import { PostsProvider } from './context/PostsProvider';
+import { ThemeProvider } from './context/ThemeProvider';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </StrictMode>
 );

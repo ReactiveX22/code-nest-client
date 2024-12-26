@@ -5,7 +5,7 @@ export const NavItem = ({ to, label }) => {
   return (
     <NavLink
       to={to}
-      className='flex h-full items-center justify-center px-4 py-2 transition-all duration-300 hover:bg-zinc-800'
+      className='hover:bg-bg-800 flex h-full items-center justify-center px-4 py-2 transition-all duration-300'
     >
       <span>{label}</span>
     </NavLink>

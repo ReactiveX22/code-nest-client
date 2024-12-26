@@ -12,7 +12,7 @@ export default function PostCard({ id, title, author, content }) {
 
   return (
     <div
-      className='group h-[168px] cursor-pointer bg-zinc-900 p-4 transition-all duration-500 hover:bg-zinc-800'
+      className='bg-bg-900 hover:bg-bg-800 group h-[168px] cursor-pointer p-4 transition-all duration-500'
       onClick={handleClick}
     >
       <div className='flex flex-col gap-4'>
