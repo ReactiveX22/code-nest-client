@@ -12,16 +12,16 @@ export default function PostCard({ id, title, author, content }) {
 
   return (
     <div
-      className='bg-bg-900 hover:bg-bg-800 group h-[168px] cursor-pointer p-4 transition-all duration-500'
+      className='bg-bg-900 hover:bg-bg-800 group h-[168px] w-full cursor-pointer p-4 transition-all duration-500 md:w-[362px]'
       onClick={handleClick}
     >
       <div className='flex flex-col gap-4'>
         <div className='flex flex-col gap-1'>
-          <h1 className='text-lg font-medium'>{title}</h1>
+          <h1 className='line-clamp-1 text-lg font-medium'>{title}</h1>
           <div className='flex justify-between gap-1 text-sm text-zinc-400'>
             <Link
               to={`/users/${author.id}`}
-              className='z-50 w-fit transition-all duration-300 group-hover:text-blue-500'
+              className='w-fit transition-all duration-300 group-hover:text-blue-500'
             >
               {author.username}
             </Link>

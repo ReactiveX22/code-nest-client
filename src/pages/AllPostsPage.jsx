@@ -8,12 +8,12 @@ export default function AllPostsPage() {
   usePosts();
 
   return (
-    <>
+    <div className='flex flex-col gap-4'>
       <div className='text-2xl font-semibold'>Recent Posts</div>
       <div>
         {posts.length === 0 && <SkeletonPosts />}
         {posts.length > 0 && <PostCardList posts={posts} />}
       </div>
-    </>
+    </div>
   );
 }

@@ -29,7 +29,7 @@ export default function UpdatePostForm({ id, title, content }) {
           <input
             type='text'
             name='title'
-            className='w-full border-b border-zinc-800 bg-transparent py-3 text-2xl outline-none'
+            className='line-clamp-1 w-full border-b border-zinc-800 bg-transparent py-3 text-2xl outline-none'
             autoFocus
             defaultValue={title}
             {...register('title', {
