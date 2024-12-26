@@ -1,6 +1,7 @@
 import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { deletePost } from '../api/postService';
 import MarkdownRendererV2 from '../components/markdown/MarkdownRendererV2';
+import { formatDate } from '.././utils/utils';
 
 export default function PostPage() {
   const { post } = useLoaderData();
@@ -18,18 +19,23 @@ export default function PostPage() {
       throw new Error(`Failed to Delete Post: ${postId} \n\n ${error}`);
     }
   }
+
+  const createdAt = formatDate(post.createdAt);
+
   return (
     <div className='mx-auto flex w-[840px] flex-col gap-6'>
       <div className='flex justify-between border-b border-zinc-800 pb-4'>
         <div className='flex flex-col gap-3'>
-          <h1 className='text-3xl font-semibold'>{post.title}</h1>
-          <div>
+          <h1 className='text-4xl font-semibold'>{post.title}</h1>
+          <div className='flex gap-2'>
             <Link
               to={`/users/${post.author.id}`}
-              className='text-zinc-600 hover:text-blue-600 hover:underline'
+              className='text-zinc-600 transition-all duration-300 hover:text-blue-600'
             >
-              {post.author.name}
+              {post.author.username}
             </Link>
+            <div className='text-zinc-600'>-</div>
+            <div className='text-zinc-600'>{createdAt}</div>
           </div>
         </div>
         <div className='flex h-full gap-6 self-end text-zinc-600'>

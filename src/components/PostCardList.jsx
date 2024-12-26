@@ -15,10 +15,10 @@ export const PostCardList = ({ posts }) => {
 PostCardList.propTypes = {
   posts: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
+      author: PropTypes.object.isRequired,
     })
   ).isRequired,
 };

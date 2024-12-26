@@ -1,4 +1,4 @@
-import supabase from '../../db/db';
+import supabase from '../../db/db.js';
 
 export default async (req, context) => {
   try {

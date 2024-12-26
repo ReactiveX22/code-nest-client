@@ -1,9 +1,12 @@
-import supabase from '../../db/db';
+import supabase from '../../db/db.js';
 
 export default async (req, context) => {
   try {
     if (req.method === 'GET') {
-      const { data, error } = await supabase.from('posts').select('*');
+      const { data, error } = await supabase
+        .from('posts')
+        .select('*')
+        .order('id', { ascending: false });
 
       if (error) {
         throw new Error(error.message);

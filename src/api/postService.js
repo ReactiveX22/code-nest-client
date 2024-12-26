@@ -15,6 +15,8 @@ export async function getPostById(postId) {
 
   const post = {
     ...postData,
+    createdAt: postData.created_at,
+    updatedAt: postData.updated_at,
     author: {
       ...author,
     },
@@ -35,7 +37,13 @@ export async function getAllPosts() {
   const allPosts = await Promise.all(
     allPostData.map(async (postData) => {
       const author = await getUserById(postData.author);
-      return { ...postData, author: author.username };
+
+      return {
+        ...postData,
+        createdAt: postData.created_at,
+        updatedAt: postData.updated_at,
+        author: { ...author },
+      };
     })
   );
 
@@ -49,7 +57,6 @@ export async function createPost(data) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      id: generateId(),
       title: data.title,
       content: data.content,
       author: 1,
@@ -83,11 +90,6 @@ export async function updatePost(data) {
   }
 
   return response.json();
-}
-
-// helpers
-function generateId() {
-  return crypto.randomUUID();
 }
 
 export async function deletePost(postId) {
