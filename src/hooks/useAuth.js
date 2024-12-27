@@ -23,7 +23,7 @@ const useAuth = () => {
         })
       );
 
-      setUser(userData.user);
+      setUser(userData.user, userData.token); // Passing both user and token
     } catch (err) {
       setError(err.message);
       throw new Error('Failed to login');
@@ -48,7 +48,7 @@ const useAuth = () => {
         })
       );
 
-      setUser(response.user);
+      setUser(response.user, response.token);
     } catch (err) {
       setError(err.message);
       throw new Error('Failed to register');
@@ -61,7 +61,7 @@ const useAuth = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
 
-    setUser(null);
+    setUser(null, null);
   };
 
   return {

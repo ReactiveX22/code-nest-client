@@ -1,16 +1,14 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import supabase from '../../db/db.js';
+import { generateToken } from '../../db/jwt.js';
 
-const JWT_SECRET = process.env.JWT_SECRET;
-
-export default async (req, context) => {
+export default async (req) => {
   try {
     if (req.method !== 'POST') {
       return new Response('Method Not Allowed', { status: 405 });
     }
-    const body = await req.json();
 
+    const body = await req.json();
     const { email, password } = body;
 
     if (!email || !password) {
@@ -34,14 +32,7 @@ export default async (req, context) => {
       return new Response('Invalid email or password', { status: 401 });
     }
 
-    const token = jwt.sign(
-      {
-        id: user.id,
-        email: user.email,
-      },
-      JWT_SECRET,
-      { expiresIn: '1h' }
-    );
+    const token = generateToken(user);
 
     return new Response(
       JSON.stringify({

@@ -1,9 +1,10 @@
 import bcrypt from 'bcryptjs';
 import supabase from '../../db/db.js';
+import { generateToken } from '../../db/jwt.js';
 
 const SALT_ROUNDS = 10;
 
-export default async (req, context) => {
+export default async (req) => {
   try {
     if (req.method !== 'POST') {
       return new Response('Method Not Allowed', { status: 405 });
@@ -54,9 +55,12 @@ export default async (req, context) => {
       throw new Error('Error creating user');
     }
 
+    const token = generateToken(data[0]);
+
     return new Response(
       JSON.stringify({
         message: 'User registered successfully',
+        token,
         user: {
           id: data[0].id,
           email: data[0].email,

@@ -12,11 +12,11 @@ export default function CreatePostForm() {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const { user } = useAuthContext();
+  const { user, authToken } = useAuthContext();
 
   async function onSubmit(data) {
     try {
-      await createPost({ ...data, author: user.id });
+      await createPost({ ...data, author: user.id }, authToken);
       navigate('/posts');
     } catch (error) {
       console.error('Error creating post:', error);

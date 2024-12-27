@@ -7,7 +7,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className='relative flex items-center'>
+    <nav className='relative flex h-full items-center'>
       <div className='flex h-full items-center justify-between'>
         <ThemeSwitcher />
         <button
@@ -38,7 +38,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className={`hidden lg:flex lg:space-x-4`}>
+      <div className={`hidden h-full lg:flex lg:space-x-4`}>
         <div className='flex space-x-1'>
           <NavItemList />
         </div>

@@ -50,11 +50,12 @@ export async function getAllPosts() {
   return allPosts;
 }
 
-export async function createPost(data) {
+export async function createPost(data, token) {
   const response = await fetch(postURL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       title: data.title,

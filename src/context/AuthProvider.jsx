@@ -8,8 +8,12 @@ export const AuthProvider = ({ children }) => {
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
-  const setUserWithStorage = (newUser) => {
-    if (newUser) {
+  const [authToken, setAuthToken] = useState(() => {
+    return localStorage.getItem('authToken');
+  });
+
+  const setUserWithStorage = (newUser, newToken) => {
+    if (newUser && newToken) {
       localStorage.setItem(
         'user',
         JSON.stringify({
@@ -18,14 +22,19 @@ export const AuthProvider = ({ children }) => {
           email: newUser.email,
         })
       );
+      localStorage.setItem('authToken', newToken);
     } else {
       localStorage.removeItem('user');
+      localStorage.removeItem('authToken');
     }
     setUser(newUser);
+    setAuthToken(newToken);
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser: setUserWithStorage }}>
+    <AuthContext.Provider
+      value={{ user, authToken, setUser: setUserWithStorage }}
+    >
       {children}
     </AuthContext.Provider>
   );
