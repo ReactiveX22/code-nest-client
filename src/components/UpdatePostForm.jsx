@@ -29,7 +29,7 @@ export default function UpdatePostForm({ id, title, content }) {
           <input
             type='text'
             name='title'
-            className='line-clamp-1 w-full border-b border-zinc-800 bg-transparent py-3 text-2xl outline-none'
+            className='border-bg-800 line-clamp-1 w-full border-b bg-transparent py-3 text-2xl outline-none'
             autoFocus
             defaultValue={title}
             {...register('title', {
@@ -51,7 +51,7 @@ export default function UpdatePostForm({ id, title, content }) {
           ></textarea>
         </FormGroup>
         <div className='flex justify-end'>
-          <button className='border border-zinc-800 bg-zinc-900 px-4 py-2 font-medium'>
+          <button className='border-bg-800 bg-bg-900 border px-4 py-2 font-medium'>
             Post
           </button>
         </div>

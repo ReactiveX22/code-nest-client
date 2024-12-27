@@ -42,22 +42,22 @@
 
   .post-textarea::-webkit-scrollbar-track {
     border-radius: 9999px;
-    background-color: #18181b;
+    background-color: var(--bg-900);
   }
 
   .post-textarea::-webkit-scrollbar-thumb {
     border-radius: 9999px;
-    background-color: #27272a;
+    background-color: var(--bg-950);
   }
 
   body::-webkit-scrollbar {
     width: 10px;
   }
   body::-webkit-scrollbar-track {
-    background-color: #18181b;
+    background-color: var(--bg-900);
   }
   body::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: #27272a;
+    background-color: var(--bg-800);
   }
 }

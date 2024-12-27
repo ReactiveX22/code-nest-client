@@ -13,6 +13,10 @@ import PostPage from './pages/PostPage';
 import { UserPage } from './pages/UserPage';
 import { PostsProvider } from './context/PostsProvider';
 import { ThemeProvider } from './context/ThemeProvider';
+import { LoginPage } from './pages/LoginPage';
+import { AuthProvider } from './context/AuthProvider';
+import { ProtectedLayout } from './pages/ProtectedLayout';
+import { RegisterPage } from './pages/RegisterPage';
 
 const router = createBrowserRouter([
   {
@@ -33,9 +37,28 @@ const router = createBrowserRouter([
         element: <PostPage />,
         loader: postLoader,
       },
-      { path: 'posts/:id/edit', element: <EditPostPage />, loader: postLoader },
-      { path: 'create/', element: <CreatePostPage /> },
       { path: 'users/:id', element: <UserPage />, loader: userLoader },
+      { path: 'login', element: <LoginPage /> },
+      { path: 'register', element: <RegisterPage /> },
+
+      // Protected routes
+      {
+        path: 'create',
+        element: (
+          // <ProtectedLayout>
+          <CreatePostPage />
+          // </ProtectedLayout>
+        ),
+      },
+      {
+        path: 'posts/:id/edit',
+        element: (
+          <ProtectedLayout>
+            <EditPostPage />
+          </ProtectedLayout>
+        ),
+        loader: postLoader,
+      },
     ],
   },
 ]);
@@ -43,7 +66,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </ThemeProvider>
   </StrictMode>
 );

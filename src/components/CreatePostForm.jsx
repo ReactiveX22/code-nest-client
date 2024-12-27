@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createPost } from '../api/postService';
 import FormGroup from './FormGroup';
 import { checkPostContent } from './formValidator';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function CreatePostForm() {
   const {
@@ -11,10 +12,11 @@ export default function CreatePostForm() {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
+  const { user } = useAuthContext();
 
   async function onSubmit(data) {
     try {
-      await createPost(data);
+      await createPost({ ...data, author: user.id });
       navigate('/posts');
     } catch (error) {
       console.error('Error creating post:', error);
@@ -28,7 +30,7 @@ export default function CreatePostForm() {
           <input
             type='text'
             name='title'
-            className='border-bg-800 w-full border-b bg-transparent py-3 text-2xl outline-none'
+            className='w-full border-b border-bg-800 bg-transparent py-3 text-2xl outline-none'
             placeholder='Title'
             {...register('title', {
               required: { value: true, message: 'Title is required.' },
@@ -48,7 +50,7 @@ export default function CreatePostForm() {
           ></textarea>
         </FormGroup>
         <div className='flex justify-end'>
-          <button className='bg-bg-900 border-bg-800 border px-4 py-2 font-medium'>
+          <button className='border border-bg-800 bg-bg-900 px-4 py-2 font-medium'>
             Post
           </button>
         </div>

@@ -59,7 +59,7 @@ export async function createPost(data) {
     body: JSON.stringify({
       title: data.title,
       content: data.content,
-      author: 1,
+      author: data.author,
     }),
   });
 
