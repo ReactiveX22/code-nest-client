@@ -17,6 +17,7 @@ import { LoginPage } from './pages/LoginPage';
 import { AuthProvider } from './context/AuthProvider';
 import { ProtectedLayout } from './pages/ProtectedLayout';
 import { RegisterPage } from './pages/RegisterPage';
+import { LandingPage } from './pages/LandingPage';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: '',
+        element: <LandingPage />,
+      },
       {
         path: 'posts/',
         element: (
@@ -45,9 +50,9 @@ const router = createBrowserRouter([
       {
         path: 'create',
         element: (
-          // <ProtectedLayout>
-          <CreatePostPage />
-          // </ProtectedLayout>
+          <ProtectedLayout>
+            <CreatePostPage />
+          </ProtectedLayout>
         ),
       },
       {

@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import FormGroup from '../FormGroup';
 
@@ -58,16 +58,24 @@ export const RegisterForm = () => {
             })}
           />
         </FormGroup>
-        <div className='flex justify-end'>
+        <div className='flex justify-center'>
           <button
             type='submit'
             className='border border-bg-700 bg-bg-800 px-4 py-2 font-medium'
             disabled={loading}
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? 'Registering in...' : 'Register'}
           </button>
         </div>
-        {error && <p className='mt-2 text-red-500'>{error}</p>}
+        <p className='text-center'>
+          Already registered?{' '}
+          <span>
+            <NavLink to='/login' className='text-blue-500'>
+              Login
+            </NavLink>
+          </span>
+        </p>
+        {error && <p className='mt-2 text-center text-red-500'>{error}</p>}
       </div>
     </form>
   );

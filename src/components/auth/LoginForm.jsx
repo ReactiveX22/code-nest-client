@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import FormGroup from '../FormGroup';
 
@@ -56,6 +56,14 @@ export const LoginForm = () => {
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </div>
+        <p className='text-center'>
+          New to CodeNest? {''}
+          <span>
+            <NavLink to='/register' className='text-blue-500'>
+              Register
+            </NavLink>
+          </span>
+        </p>
         {error && <p className='mt-2 text-red-500'>{error}</p>}
       </div>
     </form>

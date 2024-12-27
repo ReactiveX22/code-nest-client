@@ -14,7 +14,7 @@ export const NavItemList = () => {
 
       {user ? (
         <>
-          <NavItem to='/profile' label={user.username} />
+          <NavItem to={`/users/${user.id}`} label={user.username} />
           <button
             onClick={logoutUser}
             className='flex h-full items-center justify-center px-4 py-2 transition-all duration-300 hover:bg-bg-800'

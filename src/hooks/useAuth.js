@@ -23,7 +23,7 @@ const useAuth = () => {
         })
       );
 
-      setUser(userData.user, userData.token); // Passing both user and token
+      setUser(userData.user, userData.token);
     } catch (err) {
       setError(err.message);
       throw new Error('Failed to login');
