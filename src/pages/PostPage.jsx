@@ -3,6 +3,7 @@ import { deletePost } from '../api/postService';
 import MarkdownRendererV2 from '../components/markdown/MarkdownRendererV2';
 import { formatDate } from '.././utils/utils';
 import { DeleteIcon, EditIcon } from '../components/icons/Icons';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function PostPage() {
   const { post } = useLoaderData();
@@ -12,9 +13,14 @@ export default function PostPage() {
     navigate(`/posts/${postId}/edit`);
   }
 
+  const { authToken } = useAuthContext();
   async function handleDelete(postId) {
     try {
-      await deletePost(postId);
+      if (!authToken) {
+        throw new Error('User is not authenticated');
+      }
+
+      await deletePost(postId, authToken);
       navigate('/posts');
     } catch (error) {
       throw new Error(`Failed to Delete Post: ${postId} \n\n ${error}`);
@@ -25,7 +31,7 @@ export default function PostPage() {
 
   return (
     <div className='mx-auto flex w-full flex-col gap-6 md:w-[840px]'>
-      <div className='border-bg-800 flex justify-between border-b pb-4'>
+      <div className='flex justify-between border-b border-bg-800 pb-4'>
         <div className='flex w-full flex-col gap-3'>
           <h1 className='text-2xl font-semibold md:text-4xl'>{post.title}</h1>
           <div className='flex justify-between'>

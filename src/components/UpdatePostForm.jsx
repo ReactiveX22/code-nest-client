@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { updatePost } from '../api/postService';
 import FormGroup from './FormGroup';
 import { checkPostContent } from './formValidator';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function UpdatePostForm({ id, title, content }) {
   const {
@@ -13,12 +14,18 @@ export default function UpdatePostForm({ id, title, content }) {
   } = useForm();
   const navigate = useNavigate();
 
+  const { authToken } = useAuthContext();
+
   async function onSubmit(data) {
     try {
-      await updatePost({ ...data, id: id });
+      if (!authToken) {
+        throw new Error('User is not authenticated');
+      }
+
+      await updatePost({ ...data, id: id }, authToken);
       navigate(`/posts/${id}`);
     } catch (error) {
-      console.error('Error creating post:', error);
+      console.error('Error updating post:', error);
     }
   }
 
@@ -29,7 +36,7 @@ export default function UpdatePostForm({ id, title, content }) {
           <input
             type='text'
             name='title'
-            className='border-bg-800 line-clamp-1 w-full border-b bg-transparent py-3 text-2xl outline-none'
+            className='line-clamp-1 w-full border-b border-bg-800 bg-transparent py-3 text-2xl outline-none'
             autoFocus
             defaultValue={title}
             {...register('title', {
@@ -51,7 +58,7 @@ export default function UpdatePostForm({ id, title, content }) {
           ></textarea>
         </FormGroup>
         <div className='flex justify-end'>
-          <button className='border-bg-800 bg-bg-900 border px-4 py-2 font-medium'>
+          <button className='border border-bg-800 bg-bg-900 px-4 py-2 font-medium'>
             Post
           </button>
         </div>

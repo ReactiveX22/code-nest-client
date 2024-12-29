@@ -1,9 +1,16 @@
+import { authenticate } from '../../db/authMiddleware.js';
 import supabase from '../../db/db.js';
 
 export default async (req, context) => {
   try {
+    const { postId: rawPostId } = context.params;
+    const postId = parseInt(rawPostId, 10);
+
+    if (isNaN(postId)) {
+      return new Response('Invalid postId', { status: 400 });
+    }
+
     if (req.method === 'GET') {
-      const { postId } = context.params;
       const { data: post, error } = await supabase
         .from('posts')
         .select('*')
@@ -25,20 +32,39 @@ export default async (req, context) => {
     }
 
     if (req.method === 'DELETE') {
-      const { postId } = context.params;
+      const authError = await authenticate(req);
 
-      const { data, error } = await supabase
-        .from('posts')
-        .delete()
-        .eq('id', postId)
-        .select('*');
-
-      if (error) {
-        throw new Error(error.message);
+      if (authError) {
+        return authError;
       }
 
-      if (data.length === 0) {
+      const { data: post, error: fetchError } = await supabase
+        .from('posts')
+        .select('id, author')
+        .eq('id', postId)
+        .single();
+
+      if (fetchError) {
+        throw new Error(fetchError.message);
+      }
+
+      if (!post) {
         return new Response('Post not found', { status: 404 });
+      }
+
+      if (post.author !== req.user.id) {
+        return new Response('Forbidden: You cannot delete this post', {
+          status: 403,
+        });
+      }
+
+      const { error: deleteError } = await supabase
+        .from('posts')
+        .delete()
+        .eq('id', postId);
+
+      if (deleteError) {
+        throw new Error(deleteError.message);
       }
 
       return new Response(
@@ -51,25 +77,46 @@ export default async (req, context) => {
     }
 
     if (req.method === 'PUT') {
-      const { postId } = context.params;
-      const { title, content, author } = await req.json();
+      const authError = await authenticate(req);
 
-      if (!title || !content || !author) {
+      if (authError) {
+        return authError;
+      }
+
+      const { title, content } = await req.json();
+
+      if (!title || !content) {
         return new Response('Bad Request: Missing fields', { status: 400 });
+      }
+
+      const { data: post, error: fetchError } = await supabase
+        .from('posts')
+        .select('id, author')
+        .eq('id', postId)
+        .single();
+
+      if (fetchError) {
+        throw new Error(fetchError.message);
+      }
+
+      if (!post) {
+        return new Response('Post not found', { status: 404 });
+      }
+
+      if (post.author !== req.user.id) {
+        return new Response('Forbidden: You cannot edit this post', {
+          status: 403,
+        });
       }
 
       const { data, error } = await supabase
         .from('posts')
-        .update({ title, content, author })
+        .update({ title, content })
         .eq('id', postId)
         .select('*');
 
       if (error) {
         throw new Error(error.message);
-      }
-
-      if (data.length === 0) {
-        return new Response('Post not found', { status: 404 });
       }
 
       return new Response(JSON.stringify(data[0]), {

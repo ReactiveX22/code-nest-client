@@ -71,18 +71,16 @@ export async function createPost(data, token) {
   return response.json();
 }
 
-export async function updatePost(data) {
+export async function updatePost(data, token) {
   const response = await fetch(postURL + data.id, {
     method: 'PUT',
-
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
     },
-
     body: JSON.stringify({
       title: data.title,
       content: data.content,
-      author: 1,
     }),
   });
 
@@ -93,12 +91,12 @@ export async function updatePost(data) {
   return response.json();
 }
 
-export async function deletePost(postId) {
+export async function deletePost(postId, token) {
   const response = await fetch(postURL + postId, {
     method: 'DELETE',
-
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
     },
   });
 
