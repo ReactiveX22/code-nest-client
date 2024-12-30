@@ -50,7 +50,7 @@ export const LoginForm = () => {
         <div className='flex justify-end'>
           <button
             type='submit'
-            className='border border-bg-700 bg-bg-800 px-4 py-2 font-medium'
+            className='rounded bg-bg-800 px-6 py-3 font-medium transition-all duration-300 hover:bg-bg-700'
             disabled={loading}
           >
             {loading ? 'Logging in...' : 'Login'}
