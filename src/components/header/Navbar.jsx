@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
-import { Logout2, MenuIcon } from '../icons/Icons';
+import { Login2, Logout2, MenuIcon } from '../icons/Icons';
 import ThemeSwitcher from '../ThemeSwitcher';
 import { NavItemList } from './NavItemList';
+import { useAuthContext } from '../../context/AuthContext';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useAuthContext();
   const { logoutUser } = useAuth();
 
   return (
@@ -21,6 +24,7 @@ const Navbar = () => {
       </div>
 
       {/* Sidebar Menu (Hidden by Default) */}
+
       <div
         className={`fixed right-0 top-[55px] z-50 flex transform flex-col gap-2 rounded-b-md bg-bg-950 px-4 py-2 shadow-md transition-all duration-300 ease-in-out hover:bg-bg-900 ${
           isOpen ? '-translate-x-0' : 'translate-x-full'
@@ -30,15 +34,27 @@ const Navbar = () => {
           className='flex flex-col space-y-1'
           onClick={() => setIsOpen(!isOpen)}
         >
-          <button
-            onClick={logoutUser}
-            className='flex h-full items-center justify-center gap-2 px-4 py-2'
-          >
-            <div>
-              <Logout2 />
-            </div>
-            <div className='text-sm'>Log Out</div>
-          </button>
+          {user ? (
+            <button
+              onClick={logoutUser}
+              className='flex h-full items-center justify-center gap-2 px-4 py-2'
+            >
+              <div>
+                <Logout2 />
+              </div>
+              <div className='text-sm'>Log Out</div>
+            </button>
+          ) : (
+            <NavLink
+              to='/login'
+              className='flex h-full items-center justify-center gap-2 px-4 py-2'
+            >
+              <div>
+                <Login2 />
+              </div>
+              <div className='text-sm'>Log In</div>
+            </NavLink>
+          )}
         </div>
       </div>
 
