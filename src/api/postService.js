@@ -25,6 +25,33 @@ export async function getPostById(postId) {
   return post;
 }
 
+export async function getPostsByUserId(userId) {
+  const response = await fetch(postURL);
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch posts');
+  }
+
+  const allPostData = await response.json();
+
+  const userPosts = await Promise.all(
+    allPostData
+      .filter((postData) => postData.author === userId)
+      .map(async (postData) => {
+        const author = await getUserById(postData.author);
+
+        return {
+          ...postData,
+          createdAt: postData.created_at,
+          updatedAt: postData.updated_at,
+          author: { ...author },
+        };
+      })
+  );
+
+  return userPosts;
+}
+
 export async function getAllPosts() {
   const response = await fetch(postURL);
 
