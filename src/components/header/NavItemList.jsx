@@ -8,7 +8,6 @@ export const NavItemList = () => {
 
   return (
     <>
-      <NavItem to='/' label='Home' />
       <NavItem to='/posts' label='Posts' />
       <NavItem to='/create' label='Create Post' />
 

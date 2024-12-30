@@ -10,7 +10,7 @@ export default function AllPostsPage() {
   return (
     <div className='flex flex-col gap-4'>
       <div className='text-2xl font-semibold'>Recent Posts</div>
-      <div>
+      <div className='mb-3 pb-4'>
         {posts.length === 0 && <SkeletonPosts />}
         {posts.length > 0 && <PostCardList posts={posts} />}
       </div>

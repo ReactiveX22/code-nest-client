@@ -13,7 +13,10 @@ export default function PostPage() {
     navigate(`/posts/${postId}/edit`);
   }
 
-  const { authToken } = useAuthContext();
+  const { user, authToken } = useAuthContext();
+
+  const sameUser = user && user.id === post.author.id;
+
   async function handleDelete(postId) {
     try {
       if (!authToken) {
@@ -45,22 +48,25 @@ export default function PostPage() {
               <div className='hidden text-zinc-600 md:block'>-</div>
               <div className='text-zinc-600'>{createdAt}</div>
             </div>
-            <div className='flex h-full flex-col items-end gap-1 self-end text-zinc-600 md:flex-row'>
-              <button
-                onClick={() => handleEdit(post.id)}
-                className='flex items-center gap-1 transition-all duration-300 hover:text-blue-600'
-              >
-                <EditIcon className='h-5 w-5' />
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(post.id)}
-                className='flex items-center gap-1 transition-all duration-300 hover:text-red-500'
-              >
-                <DeleteIcon className='h-5 w-5' />
-                Delete
-              </button>
-            </div>
+            {/* Edit and Delete Buttons */}
+            {sameUser && (
+              <div className='flex h-full flex-col items-end gap-1 self-end text-zinc-600 md:flex-row'>
+                <button
+                  onClick={() => handleEdit(post.id)}
+                  className='flex items-center gap-1 transition-all duration-300 hover:text-blue-600'
+                >
+                  <EditIcon className='h-5 w-5' />
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(post.id)}
+                  className='flex items-center gap-1 transition-all duration-300 hover:text-red-500'
+                >
+                  <DeleteIcon className='h-5 w-5' />
+                  Delete
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

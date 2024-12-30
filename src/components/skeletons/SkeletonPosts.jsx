@@ -4,21 +4,21 @@ export default function SkeletonPosts() {
       {[...Array(12)].map((_, index) => (
         <div
           key={index}
-          className='bg-bg-900 h-[168px] w-full p-4 motion-safe:animate-pulse md:w-[362px]'
+          className='h-[168px] w-full rounded-md bg-bg-900 p-4 motion-safe:animate-pulse md:w-[362px]'
         >
           <div className='flex h-full flex-col justify-between gap-4'>
             <div className='flex flex-col gap-1'>
               <h1 className='text-lg font-medium'>
-                <span className='bg-bg-800 block h-6 w-3/4'></span>
+                <span className='block h-6 w-3/4 bg-bg-800'></span>
               </h1>
               <h3 className='w-20'>
-                <span className='bg-bg-800 block h-4 w-3/4'></span>
+                <span className='block h-4 w-3/4 bg-bg-800'></span>
               </h3>
             </div>
             <p className='flex h-14 flex-col gap-1'>
-              <span className='bg-bg-800 block h-6'></span>
-              <span className='bg-bg-800 block h-6'></span>
-              <span className='bg-bg-800 block h-6 w-1/4'></span>
+              <span className='block h-6 bg-bg-800'></span>
+              <span className='block h-6 bg-bg-800'></span>
+              <span className='block h-6 w-1/4 bg-bg-800'></span>
             </p>
           </div>
         </div>

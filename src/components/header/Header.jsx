@@ -3,8 +3,8 @@ import Navbar from './Navbar';
 
 export const Header = () => {
   return (
-    <div className='bg-bg-900 text-text-50 h-[55px] w-full text-nowrap text-lg'>
-      <div className='mx-auto flex h-full max-w-[1152px] justify-between'>
+    <div className='fixed top-0 h-[55px] w-full text-nowrap rounded-b-md bg-bg-950 text-lg shadow-sm'>
+      <div className='mx-auto flex h-full w-full max-w-[1152px] justify-between'>
         <div>
           <Link
             to='/'
