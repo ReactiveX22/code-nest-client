@@ -70,7 +70,10 @@ const MarkdownRendererV2 = ({ children }) => {
     },
     hr: () => <hr className='my-4 border-zinc-800' />,
     a: ({ ...props }) => (
-      <a {...props} className='text-blue-500 underline hover:text-blue-700'>
+      <a
+        {...props}
+        className='text-secondary-500 hover:text-secondary-400 underline'
+      >
         {props.children}
       </a>
     ),

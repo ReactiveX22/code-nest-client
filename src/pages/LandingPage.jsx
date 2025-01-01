@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import Button from '../components/ui/Button';
 
 export const LandingPage = () => {
   return (
@@ -17,12 +17,9 @@ export const LandingPage = () => {
           </p>
         </div>
         <div className='pt-6'>
-          <NavLink
-            to='/register'
-            className='rounded bg-bg-800 px-4 py-3 font-medium transition-all duration-300 hover:bg-bg-700'
-          >
+          <Button to='/register' variant='primary'>
             Get Started
-          </NavLink>
+          </Button>
         </div>
       </div>
     </div>

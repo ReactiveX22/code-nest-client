@@ -1,18 +1,9 @@
-import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import Button from '../ui/Button';
 
 export const NavItem = ({ to, label }) => {
   return (
-    <NavLink
-      to={to}
-      className='hover:bg-bg-800 flex h-full items-center justify-center px-4 py-2 transition-all duration-300'
-    >
-      <span>{label}</span>
-    </NavLink>
+    <Button to={to} variant='ghost' size='md'>
+      {label}
+    </Button>
   );
-};
-
-NavItem.propTypes = {
-  to: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
 };

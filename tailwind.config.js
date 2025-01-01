@@ -4,15 +4,23 @@ export default {
   theme: {
     extend: {
       colors: {
+        primary: {
+          500: 'var(--primary-500)',
+          400: 'var(--primary-400)',
+        },
+        secondary: {
+          500: 'var(--secondary-500)',
+          400: 'var(--secondary-400)',
+        },
+        neutral: 'var(--neutral)',
         bg: {
-          950: 'var(--bg-950)',
           900: 'var(--bg-900)',
           800: 'var(--bg-800)',
           700: 'var(--bg-700)',
         },
         text: {
           100: 'var(--text-100)',
-          50: 'var(--text-50)',
+          200: 'var(--text-200)',
         },
       },
     },

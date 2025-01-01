@@ -12,7 +12,7 @@ export default function PostCard({ id, title, author, content }) {
 
   return (
     <div
-      className='group h-[168px] w-full cursor-pointer rounded-lg bg-bg-900 p-4 transition-all duration-500 hover:bg-bg-800 md:w-[362px]'
+      className='group h-[168px] w-full cursor-pointer rounded-lg bg-bg-800 p-4 shadow-md transition-all duration-500 hover:bg-bg-700 md:w-[362px]'
       onClick={handleClick}
     >
       <div className='flex flex-col gap-4'>
@@ -21,7 +21,7 @@ export default function PostCard({ id, title, author, content }) {
           <div className='flex justify-between gap-1 text-sm text-zinc-400'>
             <Link
               to={`/users/${author.id}`}
-              className='w-fit transition-all duration-300 group-hover:text-blue-500'
+              className='group-hover:text-secondary-500 w-fit transition-all duration-300'
             >
               {author.username}
             </Link>

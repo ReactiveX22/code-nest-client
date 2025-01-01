@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { NavLink, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import FormGroup from '../FormGroup';
+import Button from '../ui/Button';
 
 export const RegisterForm = () => {
   const {
@@ -29,7 +30,7 @@ export const RegisterForm = () => {
           <input
             type='text'
             name='username'
-            className='w-full border-b border-bg-800 bg-transparent px-2 py-3 text-lg outline-none'
+            className='w-full border-b border-bg-700 bg-transparent px-2 py-3 text-lg outline-none'
             placeholder='Username'
             {...register('username', {
               required: { value: true, message: 'Username is required.' },
@@ -40,7 +41,7 @@ export const RegisterForm = () => {
           <input
             type='email'
             name='email'
-            className='w-full border-b border-bg-800 bg-transparent px-2 py-3 text-lg outline-none'
+            className='w-full border-b border-bg-700 bg-transparent px-2 py-3 text-lg outline-none'
             placeholder='Email'
             {...register('email', {
               required: { value: true, message: 'Email is required.' },
@@ -51,7 +52,7 @@ export const RegisterForm = () => {
           <input
             type='password'
             name='password'
-            className='w-full border-b border-bg-800 bg-transparent px-2 py-3 text-lg outline-none'
+            className='w-full border-b border-bg-700 bg-transparent px-2 py-3 text-lg outline-none'
             placeholder='Password'
             {...register('password', {
               required: { value: true, message: 'Password is required.' },
@@ -59,18 +60,14 @@ export const RegisterForm = () => {
           />
         </FormGroup>
         <div className='flex justify-end'>
-          <button
-            type='submit'
-            className='rounded bg-bg-800 px-6 py-3 font-medium transition-all duration-300 hover:bg-bg-700'
-            disabled={loading}
-          >
+          <Button variant='primary' type='submit' disabled={loading}>
             {loading ? 'Registering in...' : 'Register'}
-          </button>
+          </Button>
         </div>
         <p className='text-center'>
           Already registered?{' '}
           <span>
-            <NavLink to='/login' className='text-blue-500'>
+            <NavLink to='/login' className='text-secondary-500'>
               Login
             </NavLink>
           </span>
