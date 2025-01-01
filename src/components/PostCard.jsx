@@ -7,7 +7,7 @@ export default function PostCard({ id, title, author, content }) {
   const handleClick = (e) => {
     if (e.target.closest('a')) return;
 
-    navigate(`${id}`);
+    navigate(`/posts/${id}`);
   };
 
   return (
@@ -21,7 +21,7 @@ export default function PostCard({ id, title, author, content }) {
           <div className='flex justify-between gap-1 text-sm text-zinc-400'>
             <Link
               to={`/users/${author.id}`}
-              className='group-hover:text-secondary-500 w-fit transition-all duration-300'
+              className='w-fit transition-all duration-300 group-hover:text-secondary-500'
             >
               {author.username}
             </Link>
