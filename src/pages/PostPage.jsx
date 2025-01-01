@@ -70,9 +70,8 @@ export default function PostPage() {
           </div>
         </div>
       </div>
-      <div className=''>
+      <div className='mb-16 pb-12'>
         <div className='whitespace-pre-line text-pretty text-justify'>
-          {/* <MarkdownRenderer content={post.content} /> */}
           <MarkdownRendererV2>{post.content}</MarkdownRendererV2>
         </div>
       </div>

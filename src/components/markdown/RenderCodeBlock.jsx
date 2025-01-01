@@ -18,7 +18,7 @@ export const RenderCodeBlock = ({ codeContent, language = '' }) => {
   };
 
   return (
-    <div className='relative -z-10 my-4 mb-6 gap-1'>
+    <div className='relative my-4 mb-6 gap-1'>
       {language && (
         <div
           className='absolute right-2 top-2 cursor-pointer select-none rounded bg-bg-700 p-1.5 text-center text-sm'
@@ -34,7 +34,9 @@ export const RenderCodeBlock = ({ codeContent, language = '' }) => {
         </div>
       )}
 
-      <pre className={`rounded bg-bg-800 p-4 ${language ? 'mt-6' : ''}`}>
+      <pre
+        className={`overflow-x-auto rounded bg-bg-800 p-4 text-sm ${language ? 'mt-6' : ''}`}
+      >
         <code className='selection:bg-primary-400'>{codeContent}</code>
       </pre>
     </div>
