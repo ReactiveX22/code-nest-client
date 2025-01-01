@@ -50,7 +50,7 @@ export default function PostPage() {
             </div>
             {/* Edit and Delete Buttons */}
             {sameUser && (
-              <div className='flex h-full flex-col items-end gap-3 self-end text-zinc-600 md:flex-row'>
+              <div className='flex h-full flex-col items-end gap-3 self-end text-primary-400 md:flex-row'>
                 <button
                   onClick={() => handleEdit(post.id)}
                   className='flex items-center gap-1 transition-all duration-300 hover:text-blue-600'

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { createPost } from '../api/postService';
 import { useAuthContext } from '../context/AuthContext';
+import { checkPostContent } from './formValidator';
 import PostForm from './ui/PostForm';
 
 export default function CreatePostForm() {
@@ -16,5 +17,5 @@ export default function CreatePostForm() {
     }
   }
 
-  return <PostForm onSubmit={onSubmit} />;
+  return <PostForm onSubmit={onSubmit} checkPostContent={checkPostContent} />;
 }

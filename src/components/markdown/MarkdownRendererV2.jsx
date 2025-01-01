@@ -19,13 +19,15 @@ const generateIdFromText = (text, index) => {
 const Heading = ({ children, level, index }) => {
   const id = generateIdFromText(children, index);
   const Tag = `h${level}`;
-  const fontSize = `text-${4 - level === 1 ? '' : 4 - level}xl`;
+
+  const fontSize = `text-${4 - (level === 1 ? 0 : level)}xl`;
+
   return (
-    <Tag id={id} className={`${fontSize} my-4 font-bold`}>
-      <a href={`#${id}`}>
-        <span className='text-gray-800 hover:underline'>#</span> {children}
-      </a>
-    </Tag>
+    <a href={`#${id}`} className='hover:underline' id={id}>
+      <Tag className={`${fontSize} my-4 font-bold`}>
+        <span className='font-thin text-text-200'>#</span> {children}
+      </Tag>
+    </a>
   );
 };
 
@@ -65,14 +67,14 @@ const MarkdownRendererV2 = ({ children }) => {
       }
 
       return (
-        <code className='rounded bg-zinc-800/50 p-1 font-mono'>{children}</code>
+        <code className='rounded-md bg-bg-800 p-1 font-mono'>{children}</code>
       );
     },
     hr: () => <hr className='my-4 border-zinc-800' />,
     a: ({ ...props }) => (
       <a
         {...props}
-        className='text-secondary-500 hover:text-secondary-400 underline'
+        className='text-secondary-500 underline hover:text-secondary-400'
       >
         {props.children}
       </a>
@@ -84,16 +86,19 @@ const MarkdownRendererV2 = ({ children }) => {
       />
     ),
     ul: ({ children }) => (
-      <ul className='mb-4 flex list-disc flex-col pl-6'>{children}</ul>
+      <ul className='mb-4 flex list-disc flex-col pl-8'>{children}</ul>
     ),
     ol: ({ children }) => (
-      <ol className='mb-4 flex list-decimal flex-col pl-6'>{children}</ol>
+      <ol className='mb-4 flex list-decimal flex-col pl-8'>{children}</ol>
     ),
     li: ({ children }) => <li className=''>{children}</li>,
   };
 
   return (
-    <ReactMarkdown className='flex flex-col' components={components}>
+    <ReactMarkdown
+      className='flex flex-col selection:bg-primary-400'
+      components={components}
+    >
       {children}
     </ReactMarkdown>
   );
