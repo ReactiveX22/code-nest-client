@@ -2,7 +2,13 @@ import { useForm } from 'react-hook-form';
 import FormGroup from '../FormGroup';
 import Button from './Button';
 
-const PostForm = ({ title = '', content = '', onSubmit, checkPostContent }) => {
+const PostForm = ({
+  title = '',
+  content = '',
+  onSubmit,
+  checkPostContent,
+  buttonText,
+}) => {
   const {
     register,
     handleSubmit,
@@ -42,7 +48,7 @@ const PostForm = ({ title = '', content = '', onSubmit, checkPostContent }) => {
 
         <div className='flex justify-end'>
           <Button variant='primary' type='submit'>
-            Post
+            {buttonText}
           </Button>
         </div>
       </div>

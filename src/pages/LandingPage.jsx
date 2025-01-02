@@ -12,9 +12,12 @@ export const LandingPage = () => {
             Your Go-To Platform for Coding Tutorials and Articles
           </p>
         </div>
-        <div className='pt-6'>
-          <Button to='/register' variant='primary'>
+        <div className='flex gap-4 pt-6'>
+          <Button to='/register' variant='primary' size='responsive'>
             Get Started
+          </Button>
+          <Button to='/posts' variant='ghost' size='responsive'>
+            Browse Latest Articles
           </Button>
         </div>
       </div>

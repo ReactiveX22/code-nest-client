@@ -3,13 +3,15 @@ import { updatePost } from '../api/postService';
 import { useAuthContext } from '../context/AuthContext';
 import { checkPostContent } from './formValidator';
 import PostForm from './ui/PostForm';
+import { useState } from 'react';
 
 export default function UpdatePostForm({ id, title, content }) {
   const navigate = useNavigate();
-
   const { authToken } = useAuthContext();
+  const [loading, setLoading] = useState(false);
 
   async function onSubmit(data) {
+    setLoading(true);
     try {
       if (!authToken) {
         throw new Error('User is not authenticated');
@@ -19,6 +21,8 @@ export default function UpdatePostForm({ id, title, content }) {
       navigate(`/posts/${id}`);
     } catch (error) {
       console.error('Error updating post:', error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -28,6 +32,7 @@ export default function UpdatePostForm({ id, title, content }) {
       content={content}
       onSubmit={onSubmit}
       checkPostContent={checkPostContent}
+      buttonText={loading ? 'Updating...' : 'Update'}
     />
   );
 }

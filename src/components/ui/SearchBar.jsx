@@ -19,7 +19,7 @@ export const SearchBar = ({
   return (
     <form
       onSubmit={handleSubmit}
-      className={`flex w-full items-center self-end overflow-clip rounded-full border border-bg-700 pl-2 shadow-sm lg:w-1/2 ${className}`}
+      className={`flex w-full items-center self-end overflow-clip rounded-full border border-bg-700 pl-2 shadow-sm lg:w-1/3 ${className}`}
     >
       <input
         type='text'

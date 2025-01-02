@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge';
 
 const Button = ({
   variant = 'primary',
-  size = 'md',
+  size = 'responsive',
   onClick,
   to,
   children,
@@ -19,9 +19,10 @@ const Button = ({
   };
 
   const sizeClass = {
-    sm: 'text-sm px-3 py-1',
+    sm: 'text-sm px-3 py-2',
     md: 'text-base px-4 py-2',
     lg: 'text-lg px-6 py-3',
+    responsive: 'text-sm px-3 py-2 md:text-base md:px-4 md:py-2 ',
   };
 
   const buttonClass = twMerge(
