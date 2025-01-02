@@ -26,6 +26,23 @@ SvgIcon.propTypes = {
 };
 
 // Icon Definitions
+export const CodeIcon = (props) => (
+  <SvgIcon {...props}>
+    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+    <path d='M8 9l3 3l-3 3' />
+    <path d='M13 15h3' />
+    <path d='M3 7a4 4 0 0 1 4 -4h10a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-10a4 4 0 0 1 -4 -4z' />
+  </SvgIcon>
+);
+
+export const SearchIcon = (props) => (
+  <SvgIcon {...props}>
+    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+    <path d='M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0' />
+    <path d='M21 21l-6 -6' />
+  </SvgIcon>
+);
+
 export const Logout2 = (props) => (
   <SvgIcon {...props}>
     <path stroke='none' d='M0 0h24v24H0z' fill='none' />
@@ -34,6 +51,7 @@ export const Logout2 = (props) => (
     <path d='M6 15l-3 -3' />
   </SvgIcon>
 );
+
 export const Login2 = (props) => (
   <SvgIcon {...props}>
     <path stroke='none' d='M0 0h24v24H0z' fill='none' />

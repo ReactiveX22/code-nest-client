@@ -133,3 +133,28 @@ export async function deletePost(postId, token) {
 
   return response.json();
 }
+
+export async function searchPosts(query) {
+  const response = await fetch('search?query=' + encodeURIComponent(query));
+
+  if (!response.ok) {
+    throw new Error('Failed to search posts');
+  }
+
+  const searchResults = await response.json();
+
+  const posts = await Promise.all(
+    searchResults.map(async (postData) => {
+      const author = await getUserById(postData.author);
+
+      return {
+        ...postData,
+        createdAt: postData.created_at,
+        updatedAt: postData.updated_at,
+        author: { ...author },
+      };
+    })
+  );
+
+  return posts;
+}

@@ -24,7 +24,7 @@ const Heading = ({ children, level, index }) => {
 
   return (
     <a href={`#${id}`} className='hover:underline' id={id}>
-      <Tag className={`${fontSize} my-4 font-bold`}>
+      <Tag className={`${fontSize} my-4 text-left font-bold`}>
         <span className='font-thin text-text-200'>#</span> {children}
       </Tag>
     </a>
@@ -70,7 +70,7 @@ const MarkdownRendererV2 = ({ children }) => {
         <code className='rounded-md bg-bg-800 p-1 font-mono'>{children}</code>
       );
     },
-    hr: () => <hr className='my-4 border-zinc-800' />,
+    hr: () => <hr className='my-4 border-bg-800' />,
     a: ({ ...props }) => (
       <a
         {...props}
