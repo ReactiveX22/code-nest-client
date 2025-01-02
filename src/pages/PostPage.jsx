@@ -13,6 +13,15 @@ export default function PostPage() {
     navigate(`/posts/${postId}/edit`);
   }
 
+  function getReadTime(content) {
+    const wordsPerMinute = 200;
+    const wordCount = content.split(/\s+/).length;
+    const minutes = Math.ceil(wordCount / wordsPerMinute);
+    return minutes;
+  }
+
+  const readTime = getReadTime(post.content);
+
   const { user, authToken } = useAuthContext();
 
   const sameUser = user && user.id === post.author.id;
@@ -41,26 +50,28 @@ export default function PostPage() {
             <div className='flex flex-col gap-1 md:flex-row'>
               <Link
                 to={`/users/${post.author.id}`}
-                className='text-zinc-600 transition-all duration-300 hover:text-secondary-500'
+                className='text-primary-400 transition-all duration-300'
               >
                 {post.author.username}
               </Link>
-              <div className='hidden text-zinc-600 md:block'>-</div>
-              <div className='text-zinc-600'>{createdAt}</div>
+              <div className='hidden text-neutral md:block'>-</div>
+              <div className='text-neutral'>{createdAt}</div>
+              <div className='hidden text-neutral md:block'>-</div>
+              <div className='text-neutral'>{readTime} mins read</div>
             </div>
             {/* Edit and Delete Buttons */}
             {sameUser && (
               <div className='flex h-full flex-col items-end gap-3 self-end text-primary-400 md:flex-row'>
                 <button
                   onClick={() => handleEdit(post.id)}
-                  className='flex items-center gap-1 transition-all duration-300 hover:text-blue-600'
+                  className='flex items-center gap-1 text-primary-400 transition-all duration-300'
                 >
                   <EditIcon className='h-5 w-5' />
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(post.id)}
-                  className='flex items-center gap-1 transition-all duration-300 hover:text-red-500'
+                  className='flex items-center gap-1 text-red-500 transition-all duration-300'
                 >
                   <DeleteIcon className='h-5 w-5' />
                   Delete

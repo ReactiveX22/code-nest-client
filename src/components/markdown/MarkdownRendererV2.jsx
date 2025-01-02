@@ -96,7 +96,7 @@ const MarkdownRendererV2 = ({ children }) => {
 
   return (
     <ReactMarkdown
-      className='flex flex-col selection:bg-primary-400'
+      className='flex flex-col selection:bg-primary-400 selection:text-bg-900'
       components={components}
     >
       {children}

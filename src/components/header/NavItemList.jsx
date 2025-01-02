@@ -1,6 +1,5 @@
 import { useAuthContext } from '../../context/AuthContext';
 import useAuth from '../../hooks/useAuth';
-import Button from '../ui/Button';
 import { NavItem } from './NavItem';
 
 export const NavItemList = () => {
@@ -15,9 +14,7 @@ export const NavItemList = () => {
       {user ? (
         <>
           <NavItem to={`/users/${user.id}`} label='Profile' />
-          <Button onClick={logoutUser} variant='ghost' size='md'>
-            Logout
-          </Button>
+          <NavItem onClick={logoutUser} label='Logout' />
         </>
       ) : (
         <>

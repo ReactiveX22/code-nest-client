@@ -15,7 +15,7 @@ const Button = ({
   const variantClass = {
     primary: 'bg-primary-500 text-white hover:bg-primary-400',
     secondary: 'bg-secondary-500 text-white hover:bg-secondary-400',
-    ghost: 'bg-transparent text-text-100 hover:bg-bg-700',
+    ghost: 'bg-transparent text-text-100 ',
   };
 
   const sizeClass = {

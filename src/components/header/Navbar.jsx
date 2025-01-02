@@ -18,7 +18,7 @@ const Navbar = () => {
         <ThemeSwitcher />
         <Button
           variant='ghost'
-          className='lg:hidden'
+          className='hover:bg-bg-700 lg:hidden'
           onClick={() => setIsOpen(!isOpen)}
         >
           <MenuIcon size={24} />
