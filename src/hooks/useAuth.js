@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { login, register } from '../api/authService';
 import { useAuthContext } from '../context/AuthContext';
+import Cookies from 'js-cookie';
 
 const useAuth = () => {
   const { setUser } = useAuthContext();
@@ -13,14 +14,18 @@ const useAuth = () => {
     try {
       const userData = await login(credentials);
 
-      localStorage.setItem('authToken', userData.token);
-      localStorage.setItem(
+      Cookies.set('authToken', userData.token, {
+        secure: true,
+        sameSite: 'Strict',
+      });
+      Cookies.set(
         'user',
         JSON.stringify({
           id: userData.user.id,
           username: userData.user.username,
           email: userData.user.email,
-        })
+        }),
+        { secure: true, sameSite: 'Strict' }
       );
 
       setUser(userData.user, userData.token);
@@ -38,14 +43,18 @@ const useAuth = () => {
     try {
       const response = await register(userData);
 
-      localStorage.setItem('authToken', response.token);
-      localStorage.setItem(
+      Cookies.set('authToken', response.token, {
+        secure: true,
+        sameSite: 'Strict',
+      });
+      Cookies.set(
         'user',
         JSON.stringify({
           id: response.user.id,
           username: response.user.username,
           email: response.user.email,
-        })
+        }),
+        { secure: true, sameSite: 'Strict' }
       );
 
       setUser(response.user, response.token);
@@ -58,8 +67,8 @@ const useAuth = () => {
   };
 
   const logoutUser = () => {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('user');
+    Cookies.remove('authToken');
+    Cookies.remove('user');
 
     setUser(null, null);
   };

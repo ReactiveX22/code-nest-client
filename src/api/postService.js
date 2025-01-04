@@ -158,3 +158,35 @@ export async function searchPosts(query) {
 
   return posts;
 }
+
+export async function likePost(postId, token) {
+  const response = await fetch(config.baseURL + 'like/' + postId, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to like post');
+  }
+
+  return response.json();
+}
+
+export async function isLikedPost(postId, token) {
+  const response = await fetch(config.baseURL + 'like/' + postId, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Something went wrong');
+  }
+
+  return response.json();
+}

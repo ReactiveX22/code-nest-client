@@ -1,13 +1,19 @@
 // Reusable SvgIcon Component
 import PropTypes from 'prop-types';
 
-const SvgIcon = ({ size = 24, className = '', children, ...props }) => (
+const SvgIcon = ({
+  size = 24,
+  filled = false,
+  className = '',
+  children,
+  ...props
+}) => (
   <svg
     xmlns='http://www.w3.org/2000/svg'
     width={size}
     height={size}
     viewBox='0 0 24 24'
-    fill='none'
+    fill={filled ? 'currentColor' : 'none'}
     stroke='currentColor'
     strokeWidth='2'
     strokeLinecap='round'
@@ -26,6 +32,36 @@ SvgIcon.propTypes = {
 };
 
 // Icon Definitions
+export const ChevronUpIcon = (props) => (
+  <SvgIcon {...props}>
+    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+    <path d='M6 15l6 -6l6 6' />
+  </SvgIcon>
+);
+
+export const ShareIcon = (props) => (
+  <SvgIcon {...props}>
+    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+    <path d='M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7z' />
+  </SvgIcon>
+);
+
+export const MessageIcon = (props) => (
+  <SvgIcon {...props}>
+    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+    <path d='M8 9h8' />
+    <path d='M8 13h6' />
+    <path d='M18 4a3 3 0 0 1 3 3v8a3 3 0 0 1 -3 3h-5l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12z' />
+  </SvgIcon>
+);
+
+export const HeartIcon = (props) => (
+  <SvgIcon {...props}>
+    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+    <path d='M6.979 3.074a6 6 0 0 1 4.988 1.425l.037 .033l.034 -.03a6 6 0 0 1 4.733 -1.44l.246 .036a6 6 0 0 1 3.364 10.008l-.18 .185l-.048 .041l-7.45 7.379a1 1 0 0 1 -1.313 .082l-.094 -.082l-7.493 -7.422a6 6 0 0 1 3.176 -10.215z' />
+  </SvgIcon>
+);
+
 export const CodeIcon = (props) => (
   <SvgIcon {...props}>
     <path stroke='none' d='M0 0h24v24H0z' fill='none' />

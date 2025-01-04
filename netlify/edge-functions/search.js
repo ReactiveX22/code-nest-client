@@ -6,7 +6,6 @@ export default async (req, context) => {
       const url = new URL(req.url, `http://${req.headers.host}`);
 
       const searchQuery = url.searchParams.get('query');
-      console.log('searchQuery:', searchQuery);
 
       let query = supabase.from('posts').select('*');
 

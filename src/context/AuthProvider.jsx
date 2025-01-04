@@ -1,31 +1,33 @@
 import { useState } from 'react';
 import AuthContext from './AuthContext';
 import PropTypes from 'prop-types';
+import Cookies from 'js-cookie';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = Cookies.get('user');
     return storedUser ? JSON.parse(storedUser) : null;
   });
 
   const [authToken, setAuthToken] = useState(() => {
-    return localStorage.getItem('authToken');
+    return Cookies.get('authToken');
   });
 
   const setUserWithStorage = (newUser, newToken) => {
     if (newUser && newToken) {
-      localStorage.setItem(
+      Cookies.set(
         'user',
         JSON.stringify({
           id: newUser.id,
           username: newUser.username,
           email: newUser.email,
-        })
+        }),
+        { secure: true, sameSite: 'Strict' }
       );
-      localStorage.setItem('authToken', newToken);
+      Cookies.set('authToken', newToken, { secure: true, sameSite: 'Strict' });
     } else {
-      localStorage.removeItem('user');
-      localStorage.removeItem('authToken');
+      Cookies.remove('user');
+      Cookies.remove('authToken');
     }
     setUser(newUser);
     setAuthToken(newToken);

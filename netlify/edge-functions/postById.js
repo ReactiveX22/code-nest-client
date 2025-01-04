@@ -17,15 +17,25 @@ export default async (req, context) => {
         .eq('id', postId)
         .single();
 
-      if (error) {
-        throw new Error(error.message);
+      const { count: likeCount, error: likeError } = await supabase
+        .from('post_likes')
+        .select('post_id', { count: 'exact' })
+        .eq('post_id', postId);
+
+      if (error || likeError) {
+        throw new Error(error?.message || likeError?.message);
       }
 
       if (!post) {
         return new Response('Post not found', { status: 404 });
       }
 
-      return new Response(JSON.stringify(post), {
+      const postdata = {
+        ...post,
+        likeCount: likeCount || 0,
+      };
+
+      return new Response(JSON.stringify(postdata), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       });
