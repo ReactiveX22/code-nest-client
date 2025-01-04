@@ -44,7 +44,6 @@ export default async (req) => {
       }
     }
 
-    // Handle GET method
     if (req.method === 'GET') {
       const { data, error } = await supabase
         .from('posts')

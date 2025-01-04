@@ -32,6 +32,13 @@ SvgIcon.propTypes = {
 };
 
 // Icon Definitions
+export const LoaderIcon = (props) => (
+  <SvgIcon {...props}>
+    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+    <path d='M12 3a9 9 0 1 0 9 9' />
+  </SvgIcon>
+);
+
 export const ChevronUpIcon = (props) => (
   <SvgIcon {...props}>
     <path stroke='none' d='M0 0h24v24H0z' fill='none' />

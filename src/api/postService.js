@@ -175,6 +175,22 @@ export async function likePost(postId, token) {
   return response.json();
 }
 
+export async function unlikePost(postId, token) {
+  const response = await fetch(config.baseURL + 'like/' + postId, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to like post');
+  }
+
+  return response.json();
+}
+
 export async function isLikedPost(postId, token) {
   const response = await fetch(config.baseURL + 'like/' + postId, {
     method: 'GET',
