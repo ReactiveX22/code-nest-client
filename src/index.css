@@ -102,5 +102,6 @@
     transition: background-color 5000s ease-in-out 0s;
     color: var(--text-100);
     caret-color: var(--text-100);
+    @apply rounded-md;
   }
 }

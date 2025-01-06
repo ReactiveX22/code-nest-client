@@ -22,8 +22,15 @@ export default async (req, context) => {
         .select('post_id', { count: 'exact' })
         .eq('post_id', postId);
 
-      if (error || likeError) {
-        throw new Error(error?.message || likeError?.message);
+      const { count: commentCount, error: commentError } = await supabase
+        .from('post_comments')
+        .select('post_id', { count: 'exact' })
+        .eq('post_id', postId);
+
+      if (error || likeError || commentError) {
+        throw new Error(
+          error?.message || likeError?.message || commentError?.message
+        );
       }
 
       if (!post) {
@@ -33,6 +40,7 @@ export default async (req, context) => {
       const postdata = {
         ...post,
         likeCount: likeCount || 0,
+        commentCount: commentCount || 0,
       };
 
       return new Response(JSON.stringify(postdata), {

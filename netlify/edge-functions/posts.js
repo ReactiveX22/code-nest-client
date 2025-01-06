@@ -1,5 +1,5 @@
-import supabase from '../../db/db.js';
 import jwt from 'jsonwebtoken';
+import supabase from '../../db/db.js';
 
 export default async (req) => {
   try {

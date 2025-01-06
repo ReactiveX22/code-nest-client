@@ -8,11 +8,13 @@ import { ScrollToTopButton } from '../components/ui/ScrollToTopButton';
 import { useAuthContext } from '../context/AuthContext';
 import { PostInteractions } from '../components/interaction/PostInteractions';
 import { useState } from 'react';
+import { CommentSection } from '../components/interaction/CommentSection';
 
 export default function PostPage() {
   const { post } = useLoaderData();
 
   const [likeCount, setLikeCount] = useState(post.likeCount);
+  const [commentCount, setCommentCount] = useState(post.commentCount);
 
   const navigate = useNavigate();
 
@@ -102,13 +104,20 @@ export default function PostPage() {
         </div>
       </div>
       <div>
-        <PostInteractions likes={likeCount} comments={15} />
+        <PostInteractions likes={likeCount} comments={commentCount} />
       </div>
       <div>
         <PostInteractionBar
           postId={post.id}
           authToken={authToken}
           setLikeCount={setLikeCount}
+        />
+      </div>
+      <div>
+        <CommentSection
+          postId={post.id}
+          comments={post.comments}
+          setCommentCount={setCommentCount}
         />
       </div>
       <ScrollToTopButton />

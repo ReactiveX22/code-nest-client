@@ -1,17 +1,20 @@
 import { getUserById } from './userService';
 
 import config from './config';
+import { getAllCommentsByPostId } from './commentService';
 
 const postURL = config.baseURL + 'posts/';
 
 export async function getPostById(postId) {
   const response = await fetch(postURL + postId);
+
   if (!response.ok) {
     throw new Error('Failed to fetch post');
   }
 
   const postData = await response.json();
   const author = await getUserById(postData.author);
+  const comments = await getAllCommentsByPostId(postData.id);
 
   const post = {
     ...postData,
@@ -20,6 +23,7 @@ export async function getPostById(postId) {
     author: {
       ...author,
     },
+    comments: comments,
   };
 
   return post;
