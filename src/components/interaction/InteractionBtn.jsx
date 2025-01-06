@@ -7,6 +7,7 @@ export const InteractionBtn = ({ label, icon, onClick, loading }) => {
       variant='ghost'
       onClick={onClick}
       className='flex w-full items-center justify-center rounded-none hover:bg-bg-700'
+      disabled={loading}
     >
       <div className='flex w-full flex-1 items-center justify-center gap-2 py-2'>
         {loading ? <LoaderIcon size={24} className='animate-spin' /> : icon}

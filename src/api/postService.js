@@ -177,7 +177,7 @@ export async function likePost(postId, token) {
 
 export async function unlikePost(postId, token) {
   const response = await fetch(config.baseURL + 'like/' + postId, {
-    method: 'POST',
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,

@@ -8,9 +8,9 @@ const Button = ({
   to,
   children,
   className = '',
+  disabled,
 }) => {
-  const baseClass =
-    'inline-block font-semibold text-center duration-300 transition-all rounded-md';
+  const baseClass = `inline-block font-semibold text-center duration-300 transition-all rounded-md ${disabled && 'disabled:cursor-not-allowed'}`;
 
   const variantClass = {
     primary: 'bg-primary-500 text-white hover:bg-primary-400',
@@ -41,7 +41,7 @@ const Button = ({
   }
 
   return (
-    <button className={buttonClass} onClick={onClick}>
+    <button className={buttonClass} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

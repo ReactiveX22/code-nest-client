@@ -4,7 +4,7 @@ import { HeartIcon, MessageIcon, ShareIcon } from '../icons/Icons';
 import { InteractionBtn } from './InteractionBtn';
 import { useNavigate } from 'react-router-dom';
 
-export const PostInteractionBar = ({ postId, authToken }) => {
+export const PostInteractionBar = ({ postId, authToken, setLikeCount }) => {
   const [loading, setLoading] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const navigate = useNavigate();
@@ -34,11 +34,13 @@ export const PostInteractionBar = ({ postId, authToken }) => {
       if (isLiked) {
         await unlikePost(postId, authToken);
         setIsLiked(false);
+        setLikeCount((prev) => prev - 1);
         return;
       }
 
       await likePost(postId, authToken);
       setIsLiked(true);
+      setLikeCount((prev) => prev + 1);
     } catch (error) {
       console.error('Error updating post:', error);
     } finally {

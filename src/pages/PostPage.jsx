@@ -6,9 +6,14 @@ import { PostInteractionBar } from '../components/interaction/PostInteractionBar
 import MarkdownRendererV2 from '../components/markdown/MarkdownRendererV2';
 import { ScrollToTopButton } from '../components/ui/ScrollToTopButton';
 import { useAuthContext } from '../context/AuthContext';
+import { PostInteractions } from '../components/interaction/PostInteractions';
+import { useState } from 'react';
 
 export default function PostPage() {
   const { post } = useLoaderData();
+
+  const [likeCount, setLikeCount] = useState(post.likeCount);
+
   const navigate = useNavigate();
 
   function handleEdit(postId) {
@@ -65,7 +70,7 @@ export default function PostPage() {
               {/* Likes, Comments */}
               <div className='flex items-center gap-1 text-lg text-neutral'>
                 <HeartIcon filled={true} size={18} />
-                <div>{post.likeCount} </div>
+                <div>{likeCount} </div>
               </div>
             </div>
 
@@ -97,7 +102,14 @@ export default function PostPage() {
         </div>
       </div>
       <div>
-        <PostInteractionBar postId={post.id} authToken={authToken} />
+        <PostInteractions likes={likeCount} comments={15} />
+      </div>
+      <div>
+        <PostInteractionBar
+          postId={post.id}
+          authToken={authToken}
+          setLikeCount={setLikeCount}
+        />
       </div>
       <ScrollToTopButton />
     </div>
