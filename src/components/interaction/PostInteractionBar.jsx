@@ -48,6 +48,16 @@ export const PostInteractionBar = ({ postId, authToken, setLikeCount }) => {
     }
   };
 
+  const scrollToBottom = () => {
+    const scrollableElement = document.querySelector('main');
+    if (scrollableElement) {
+      scrollableElement.scrollTo({
+        top: scrollableElement.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <div className='flex w-full justify-end self-center rounded-md border border-bg-700'>
       <InteractionBtn
@@ -56,7 +66,11 @@ export const PostInteractionBar = ({ postId, authToken, setLikeCount }) => {
         onClick={handleLike}
         loading={loading}
       />
-      <InteractionBtn label='Comment' icon={<MessageIcon size={24} />} />
+      <InteractionBtn
+        label='Comment'
+        icon={<MessageIcon size={24} />}
+        onClick={scrollToBottom}
+      />
       <InteractionBtn label='Share' icon={<ShareIcon size={24} />} />
     </div>
   );
