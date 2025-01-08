@@ -11,7 +11,8 @@ export async function getAllCommentsByPostId(postId) {
 
   const comments = await response.json();
 
-  return comments.map(({ profile, comment_text, created_at }) => ({
+  return comments.map(({ id, profile, comment_text, created_at }) => ({
+    id: id,
     profileId: profile.id,
     username: profile.username,
     commentText: comment_text,
@@ -33,6 +34,22 @@ export async function createComment(postId, data, token) {
 
   if (!response.ok) {
     throw new Error('Failed to create comment');
+  }
+
+  return response.json();
+}
+
+export async function deleteComment(postId, commentId, token) {
+  const response = await fetch(commentURL + postId + '/' + commentId, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to delete post');
   }
 
   return response.json();

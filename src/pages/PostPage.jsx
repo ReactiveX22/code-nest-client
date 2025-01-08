@@ -1,14 +1,21 @@
+import { useState } from 'react';
 import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { formatDate } from '.././utils/utils';
 import { deletePost } from '../api/postService';
-import { DeleteIcon, EditIcon, HeartIcon } from '../components/icons/Icons';
+import {
+  DeleteIcon,
+  EditIcon,
+  HeartIcon,
+  MessageIcon,
+} from '../components/icons/Icons';
+import { CommentSection } from '../components/interaction/CommentSection';
 import { PostInteractionBar } from '../components/interaction/PostInteractionBar';
+import { PostInteractions } from '../components/interaction/PostInteractions';
 import MarkdownRendererV2 from '../components/markdown/MarkdownRendererV2';
+import Button from '../components/ui/Button';
 import { ScrollToTopButton } from '../components/ui/ScrollToTopButton';
 import { useAuthContext } from '../context/AuthContext';
-import { PostInteractions } from '../components/interaction/PostInteractions';
-import { useState } from 'react';
-import { CommentSection } from '../components/interaction/CommentSection';
+import { useUserCheck } from '../hooks/useIsSameUser';
 
 export default function PostPage() {
   const { post } = useLoaderData();
@@ -31,9 +38,11 @@ export default function PostPage() {
 
   const readTime = getReadTime(post.content);
 
-  const { user, authToken } = useAuthContext();
+  const { authToken } = useAuthContext();
 
-  const sameUser = user && user.id === post.author.id;
+  const { isSameUserForPost } = useUserCheck();
+
+  const isPostAuthor = isSameUserForPost(post);
 
   async function handleDelete(postId) {
     try {
@@ -56,7 +65,7 @@ export default function PostPage() {
         <div className='flex w-full flex-col gap-3'>
           <h1 className='text-2xl font-semibold md:text-4xl'>{post.title}</h1>
           <div className='flex justify-between'>
-            <div className='flex flex-col gap-1'>
+            <div className='flex flex-col gap-3'>
               <div className='flex flex-col gap-1 text-neutral md:flex-row'>
                 <Link
                   to={`/users/${post.author.id}`}
@@ -70,29 +79,39 @@ export default function PostPage() {
                 <div className='text-neutral'>{readTime} mins read</div>
               </div>
               {/* Likes, Comments */}
-              <div className='flex items-center gap-1 text-lg text-neutral'>
-                <HeartIcon filled={true} size={18} />
-                <div>{likeCount} </div>
+              <div className='flex items-center gap-3 text-neutral'>
+                <div className='flex items-center gap-1'>
+                  <HeartIcon filled={true} size={20} />
+                  <div>{likeCount}</div>
+                </div>
+                <div className='flex items-center gap-1'>
+                  <MessageIcon filled={true} size={20} />
+                  <div>{commentCount}</div>
+                </div>
               </div>
             </div>
 
             {/* Edit and Delete Buttons */}
-            {sameUser && (
-              <div className='flex h-full flex-col items-end gap-3 self-end text-primary-400 md:flex-row'>
-                <button
+            {isPostAuthor && (
+              <div className='flex h-full flex-col items-end gap-3 self-end text-primary-400 md:flex-row md:gap-1'>
+                <Button
+                  variant='ghost'
                   onClick={() => handleEdit(post.id)}
-                  className='flex items-center gap-1 text-primary-400 transition-all duration-300'
+                  size='sm'
+                  className='flex items-center gap-1 text-primary-400'
                 >
-                  <EditIcon className='h-5 w-5' />
+                  <EditIcon size={20} />
                   Edit
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant='ghost'
                   onClick={() => handleDelete(post.id)}
-                  className='flex items-center gap-1 text-red-500 transition-all duration-300'
+                  size='sm'
+                  className='flex items-center gap-1 text-red-500'
                 >
-                  <DeleteIcon className='h-5 w-5' />
+                  <DeleteIcon size={20} />
                   Delete
-                </button>
+                </Button>
               </div>
             )}
           </div>
